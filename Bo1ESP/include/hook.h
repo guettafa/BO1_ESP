@@ -2,5 +2,6 @@
 
 #include "pch.h"
 
-void      PlaceJmp   (char* addrsToJumpFrom, char* addrsToJumpTo, size_t numberOfBytes, DWORD* stolenBytes);
-uintptr_t Trampoline (char* addrsToJumpFrom, char* addrsToJumpTo, size_t numberOfBytes);
+extern void      PlaceJmp    (char* src, char* dst, size_t size, DWORD* stolenBytes);
+extern uintptr_t Trampoline  (char* src, char* dst, size_t size);
+
