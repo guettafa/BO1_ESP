@@ -3,7 +3,7 @@
 
 void PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes)
 {
-	// To restore old state we save old state in dwOld
+	// To restore old state later
 	DWORD dwOld;
 
 	// Allow read and writing on the address
@@ -13,7 +13,7 @@ void PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes)
 
 	*src = 0xE9; // Place jmp in the address we want to jump from
 
-	uintptr_t rva = dst - src - 5; // 5 is for the jmp
+	uintptr_t rva = ((uintptr_t)dst - (uintptr_t)src) - 5; // 5 is for the jmp
 	*(uintptr_t*)(src + 1) = rva;  // Place rva after the jmp
 
 	if (size - 5 > 0)
@@ -34,6 +34,8 @@ uintptr_t Trampoline(char* src, char* dst, size_t size)
 
 	uintptr_t rvaToGoBack = src - codeCaveAddrs - 5;
 	
+	
+
 	*(uintptr_t*)(codeCaveAddrs + size)     = 0xE9; // place jmp so we can jump back after all stolen bytes
 	*(uintptr_t*)(codeCaveAddrs + size + 1) = rvaToGoBack;
 

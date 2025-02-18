@@ -6,7 +6,7 @@
 namespace Client
 {
 	constexpr const char* pattern = "\xF3\x0F\x11\x86\x04\x01\x00\x00\xF3\x0F\x10\x86\xEC\x00\x00\x00\xF3\x0F\x58\x86\x20\x01\x00\x00\xF3\x0F\x11\x86\x08\x01\x00\x00\xF3\x0F\x10\x86\xF0\x00\x00\x00\xF3\x0F\x58\x86\x24\x01\x00\x00\x8D\xBE\x04\x01\x00\x00";
-	
-	extern MODULEINFO GetModuleInfo (const wchar_t* moduleName);
-	extern uintptr_t  FindPattern   (const wchar_t* moduleName, const char* pattern, int patternLength);
+
+	MODULEINFO GetModuleInfo (const wchar_t* moduleName);
+	uintptr_t  FindPattern   (const wchar_t* moduleName, const char* pattern, int patternLength);
 }
