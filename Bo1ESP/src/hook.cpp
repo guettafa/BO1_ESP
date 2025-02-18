@@ -34,8 +34,6 @@ uintptr_t Trampoline(char* src, char* dst, size_t size)
 
 	uintptr_t rvaToGoBack = src - codeCaveAddrs - 5;
 	
-	
-
 	*(uintptr_t*)(codeCaveAddrs + size)     = 0xE9; // place jmp so we can jump back after all stolen bytes
 	*(uintptr_t*)(codeCaveAddrs + size + 1) = rvaToGoBack;
 

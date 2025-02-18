@@ -6,6 +6,9 @@
 #pragma warning(disable: 4996)
 
 uintptr_t codeCaveAddrs;
+uintptr_t entityAddrs = 0;
+
+int* healthOfEnt = (int*)(entityAddrs + 0x18);
 
 __declspec(naked) void HookFunc()
 {
@@ -13,15 +16,15 @@ __declspec(naked) void HookFunc()
 
     _asm
     {
-        pushad
+        mov [entityAddrs],esi
     }
-
-    // Here is my code
-
+    
+    std::printf(" Entity : %x\n", entityAddrs);
+    std::printf(" Health : %d\n", healthOfEnt); // give 24 for whatever reason
+    
     _asm
     {
-        popad
-        jmp[codeCaveAddrs]
+        jmp [codeCaveAddrs]
     }
 }
 
