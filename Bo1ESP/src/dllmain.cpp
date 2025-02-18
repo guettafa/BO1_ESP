@@ -5,13 +5,24 @@
 
 #pragma warning(disable: 4996)
 
-typedef void(__cdecl* tCodeCave)();
-tCodeCave pReturnBack = nullptr;
+uintptr_t codeCaveAddrs;
 
-void HookFunc()
+__declspec(naked) void HookFunc()
 {
     std::printf("HOOKED \n");
-    pReturnBack();
+
+    _asm
+    {
+        pushad
+    }
+
+    // Here is my code
+
+    _asm
+    {
+        popad
+        jmp[codeCaveAddrs]
+    }
 }
 
 BOOL WINAPI MainThread(HMODULE hModule)
@@ -20,17 +31,15 @@ BOOL WINAPI MainThread(HMODULE hModule)
     freopen("CONOUT$","w", stdout);
 
     const uintptr_t address = Client::FindPattern(L"BlackOps.exe", Client::pattern, 53);
-    const uintptr_t codeCaveAddrs = Trampoline((char*)address, (char*)&HookFunc, 8);
+    codeCaveAddrs = Trampoline((char*)address, (char*)&HookFunc, 8);
 
 #ifdef _DEBUG
     std::printf("address : %x\naddress of codecave : %x\n", address, codeCaveAddrs);
 #endif
 
-    pReturnBack = (tCodeCave)codeCaveAddrs;
-
     while (true)
     {
-        if (GetAsyncKeyState(VK_ESCAPE))
+        if (GetAsyncKeyState(VK_DOWN))
             break;
     }
 
