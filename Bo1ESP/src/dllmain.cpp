@@ -8,7 +8,10 @@
 uintptr_t codeCaveAddrs;
 uintptr_t entityAddrs = 0;
 
-int* healthOfEnt = (int*)(entityAddrs + 0x18);
+uintptr_t localPlayerEntityAddrs = 0x1a796f8;
+
+std::vector<uintptr_t> entities{};
+bool isAlreadyHere = false;
 
 __declspec(naked) void HookFunc()
 {
@@ -18,10 +21,27 @@ __declspec(naked) void HookFunc()
     {
         mov [entityAddrs],esi
     }
-    
-    std::printf(" Entity : %x\n", entityAddrs);
-    std::printf(" Health : %d\n", healthOfEnt); // give 24 for whatever reason
-    
+
+    if (entityAddrs != localPlayerEntityAddrs)
+    {
+        for (uintptr_t entity : entities)
+        {
+            if (entityAddrs != entity)
+                continue;
+
+            isAlreadyHere = true; 
+            std::printf(" Entity is already here: %x\n", entityAddrs);
+
+        }
+
+        if (!isAlreadyHere)
+        {
+            entities.push_back(entityAddrs);
+            isAlreadyHere = false;
+        }
+        std::printf("Size of vector : %d\n", entities.size());
+    }
+
     _asm
     {
         jmp [codeCaveAddrs]
