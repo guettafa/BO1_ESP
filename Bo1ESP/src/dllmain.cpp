@@ -1,50 +1,20 @@
+#include <iostream>
+
 #include "pch.h"
 #include "client.h"
 #include "hook.h"
 
-#include <iostream>
-#include <unordered_map>
-
 #pragma warning(disable: 4996)
-
-uintptr_t codeCaveAddrs;
-uintptr_t entityAddrs = 0;
-uintptr_t localPlayerEntityAddrs = 0x1a796f8;
-
-float* xPosOfEnt = nullptr;
-uintptr_t xPosOfEntAddrs = 0;
-
-
-std::unordered_map<uintptr_t, bool> entities{};
-
-__declspec(naked) void HookFunc()
-{
-    _asm
-    {
-        mov [entityAddrs],esi
-    }
-
-    if (!entities[entityAddrs] && entityAddrs != localPlayerEntityAddrs)
-        entities[entityAddrs] += 1;
-
-    xPosOfEnt = reinterpret_cast<float*>(entityAddrs + 0x18);
-
-    std::printf("size   : %d\n", entities.size());
-    std::printf("xpos   : %f\n", *xPosOfEnt);
-    
-    _asm
-    {
-        jmp [codeCaveAddrs]
-    }
-}
 
 BOOL WINAPI MainThread(HMODULE hModule)
 {
+    using namespace Hook;
+
     AllocConsole();
     freopen("CONOUT$","w", stdout);
 
-    const uintptr_t address = Client::FindPattern(L"BlackOps.exe", Client::pattern, 53);
-    codeCaveAddrs = Trampoline((char*)address, (char*)&HookFunc, 8);
+    const uintptr_t address = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
+    codeCaveAddrs = Trampoline((char*)address, (char*)&EntityHook, 8);
 
 #ifdef _DEBUG
     std::printf("address : %x\naddress of codecave : %x\n", address, codeCaveAddrs);

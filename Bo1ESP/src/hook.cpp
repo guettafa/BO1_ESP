@@ -1,7 +1,40 @@
 #include "pch.h"
 #include "hook.h"
 
-void PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes)
+namespace Hook
+{
+	std::unordered_map<uintptr_t, bool> entities{};
+
+	uintptr_t entityAddrs			 = 0;
+	uintptr_t xPosOfEntAddrs		 = 0;
+	uintptr_t codeCaveAddrs			 = 0;
+	uintptr_t localPlayerEntityAddrs = 0x1a796f8;
+
+	float* xPosOfEnt = nullptr;
+}
+
+NAKED void Hook::EntityHook()
+{
+	__asm
+	{
+		mov[entityAddrs], esi
+	}
+
+	if (!entities[entityAddrs] && entityAddrs != localPlayerEntityAddrs)
+		entities[entityAddrs] += 1;
+
+	xPosOfEnt = reinterpret_cast<float*>(entityAddrs + 0x18);
+
+	std::printf("size   : %d\n", entities.size());
+	std::printf("xpos   : %f\n", *xPosOfEnt);
+
+	__asm
+	{
+		jmp[codeCaveAddrs]
+	}
+}
+
+void Hook::PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes)
 {
 	// To restore old state later
 	DWORD dwOld;
@@ -22,7 +55,7 @@ void PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes)
 	VirtualProtect(src, size, dwOld, &dwOld); // Restore access
 }
 
-uintptr_t Trampoline(char* src, char* dst, size_t size)
+uintptr_t Hook::Trampoline(char* src, char* dst, size_t size)
 {
 	BYTE* stolenBytes = new BYTE[size];
 
