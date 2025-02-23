@@ -8,10 +8,10 @@
 
 //0x1a796f8
 
+
 namespace Hook
 {
 	// Function Ptr for IDXGISwapChain::Present function
-	using PresentHook = HRESULT(__stdcall*)(IDXGISwapChain* pSwapchain, UINT syncInterval, UINT flags);
 
 	extern std::unordered_map<uintptr_t, bool> entities;
 
