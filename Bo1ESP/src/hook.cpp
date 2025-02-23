@@ -16,13 +16,13 @@ namespace Hook
 	float* xPosOfEnt = nullptr;
 }
 
-HRESULT Hook::PresentHook(IDXGISwapChain* pSwapchain, UINT syncInterval, UINT flags)
+HRESULT __stdcall Hook::PresentHook(IDirect3DDevice9* pDevice, const RECT* pSrcRect, const RECT* pDestRect, HWND hWindow, const RGNDATA* pRegion)
 {
 	// Own Rendering
 
 	std::cout << "Hooked DXGI PRESENT !" << std::endl;
 
-	return originalPresent(pSwapchain, syncInterval, flags);
+	return originalPresent(pDevice, pSrcRect, pDestRect, hWindow, pRegion);
 }
 
 NAKED void Hook::EntityHook()

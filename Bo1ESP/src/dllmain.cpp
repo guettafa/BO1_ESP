@@ -19,14 +19,14 @@ BOOL WINAPI MainThread(HMODULE hModule)
     CreateConsole();
 
     const uintptr_t hookEntityAddrs = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
-    const uintptr_t dxgiPresentFunctionAddrs = (uintptr_t)GetModuleHandle(L"dxgi.dll") + (uintptr_t)Game::Offsets::dxgiPresentFunctionOffsets;
+    const uintptr_t d3d9PresentFunctionAddrs = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::Offsets::d3d9PresentFunctionOffsets;
 
     codeCaveAddrs   =           Trampoline((char*)hookEntityAddrs, (char*)&EntityHook, 8);
-    originalPresent = (Present) Trampoline((char*)dxgiPresentFunctionAddrs, (char*)&PresentHook, 5);
+    originalPresent = (Present) Trampoline((char*)d3d9PresentFunctionAddrs, (char*)&PresentHook, 5);
 
 
 #ifdef _DEBUG
-    std::printf("address : %x\naddress of codecave : %x\naddress of dxgi present : %x\n", hookEntityAddrs, codeCaveAddrs, dxgiPresentFunctionAddrs);
+    std::printf("address : %x\naddress of codecave : %x\naddress of dxgi present : %x\n", hookEntityAddrs, codeCaveAddrs, d3d9PresentFunctionAddrs);
 #endif
 
     while (true)

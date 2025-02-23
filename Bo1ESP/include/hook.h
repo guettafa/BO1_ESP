@@ -6,7 +6,7 @@
 
 #define NAKED __declspec(naked)
 
-using Present = HRESULT(__stdcall*)(IDXGISwapChain* pSwapchain, UINT syncInterval, UINT flags);
+using Present = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion);
 
 namespace Hook
 {
@@ -22,8 +22,8 @@ namespace Hook
 	extern uintptr_t						   codeCaveAddrs;
 
 
-	HRESULT   PresentHook(IDXGISwapChain* pSwapchain, UINT syncInterval, UINT flags);
-	void      EntityHook();
-	void      PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes);
-	uintptr_t Trampoline(char* src, char* dst, size_t size);
+	HRESULT   __stdcall PresentHook(IDirect3DDevice9* pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion);
+	void				EntityHook();
+	void				PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes);
+	uintptr_t			Trampoline(char* src, char* dst, size_t size);
 }
