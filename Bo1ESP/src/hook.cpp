@@ -1,16 +1,28 @@
 #include "pch.h"
 #include "hook.h"
 #include "game.h"
+#include <iostream>
 
 namespace Hook
 {
-	std::unordered_map<uintptr_t, bool> entities{};
+	// Function Pointers for Hooks
+	Present originalPresent = nullptr;
 
+	std::unordered_map<uintptr_t, bool> entities{};
 	uintptr_t entityAddrs			 = 0;
 	uintptr_t xPosOfEntAddrs		 = 0;
 	uintptr_t codeCaveAddrs			 = 0;
 
 	float* xPosOfEnt = nullptr;
+}
+
+HRESULT Hook::PresentHook(IDXGISwapChain* pSwapchain, UINT syncInterval, UINT flags)
+{
+	// Own Rendering
+
+	std::cout << "Hooked DXGI PRESENT !" << std::endl;
+
+	return originalPresent(pSwapchain, syncInterval, flags);
 }
 
 NAKED void Hook::EntityHook()

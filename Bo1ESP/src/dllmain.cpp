@@ -2,39 +2,32 @@
 #include "pch.h"
 #include "client.h"
 #include "hook.h"
+#include "game.h"
 #include <iostream>
 
 #pragma warning(disable: 4996)
 
-
-using Present = HRESULT(__stdcall*)(IDXGISwapChain* pSwapchain, UINT syncInterval, UINT flags);
-Present originalPresent = nullptr;
-
-HRESULT HookPresent(IDXGISwapChain* pSwapchain, UINT syncInterval, UINT flags)
+VOID CreateConsole()
 {
-    // Own Rendering
-    std::cout << "Hooked DXGI PRESENT !" << std::endl;
-
-    return originalPresent(pSwapchain, syncInterval, flags);
+    AllocConsole();
+    freopen("CONOUT$", "w", stdout);
 }
 
 BOOL WINAPI MainThread(HMODULE hModule)
 {
     using namespace Hook;
-
-    AllocConsole();
-    freopen("CONOUT$","w", stdout);
+    CreateConsole();
 
     const uintptr_t hookEntityAddrs = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
-    const uintptr_t dxgiPresentFunctionAddrs = (uintptr_t)GetModuleHandle(L"dxgi.dll") + (uintptr_t)0xA4810;
+    const uintptr_t dxgiPresentFunctionAddrs = (uintptr_t)GetModuleHandle(L"dxgi.dll") + (uintptr_t)Game::Offsets::dxgiPresentFunctionOffsets;
 
     codeCaveAddrs   =           Trampoline((char*)hookEntityAddrs, (char*)&EntityHook, 8);
-    originalPresent = (Present) Trampoline((char*)dxgiPresentFunctionAddrs, (char*)&HookPresent, 5);
+    originalPresent = (Present) Trampoline((char*)dxgiPresentFunctionAddrs, (char*)&PresentHook, 5);
+
 
 #ifdef _DEBUG
     std::printf("address : %x\naddress of codecave : %x\naddress of dxgi present : %x\n", hookEntityAddrs, codeCaveAddrs, dxgiPresentFunctionAddrs);
 #endif
-
 
     while (true)
     {
