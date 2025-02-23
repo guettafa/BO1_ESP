@@ -156,6 +156,7 @@
     <ClInclude Include="include\client.h" />
     <ClInclude Include="include\hook.h" />
     <ClInclude Include="include\pch.h" />
+    <ClInclude Include="include\game.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hook.cpp" />

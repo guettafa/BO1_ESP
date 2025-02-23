@@ -3,13 +3,9 @@
 #include "pch.h"
 #include "client.h"
 #include "hook.h"
-#include <d3d9.h>
-#include <dxgi.h>
+
 
 #pragma warning(disable: 4996)
-
-using PresentHook = HRESULT(__stdcall*)(IDXGISwapChain* pSwapchain, UINT syncInterval, UINT flags);
-PresentHook PresentFunc = nullptr;
 
 BOOL WINAPI MainThread(HMODULE hModule)
 {

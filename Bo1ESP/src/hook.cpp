@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "hook.h"
+#include "game.h"
 
 namespace Hook
 {
@@ -8,7 +9,6 @@ namespace Hook
 	uintptr_t entityAddrs			 = 0;
 	uintptr_t xPosOfEntAddrs		 = 0;
 	uintptr_t codeCaveAddrs			 = 0;
-	uintptr_t localPlayerEntityAddrs = 0x1a796f8;
 
 	float* xPosOfEnt = nullptr;
 }
@@ -20,7 +20,7 @@ NAKED void Hook::EntityHook()
 		mov[entityAddrs], esi
 	}
 
-	if (!entities[entityAddrs] && entityAddrs != localPlayerEntityAddrs)
+	if (!entities[entityAddrs] && entityAddrs != Game::localPlayerEntityAddrs)
 		entities[entityAddrs] += 1;
 
 	xPosOfEnt = reinterpret_cast<float*>(entityAddrs + 0x18);
