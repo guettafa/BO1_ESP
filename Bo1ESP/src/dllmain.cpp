@@ -3,8 +3,13 @@
 #include "pch.h"
 #include "client.h"
 #include "hook.h"
+#include <d3d9.h>
+#include <dxgi.h>
 
 #pragma warning(disable: 4996)
+
+using PresentHook = HRESULT(__stdcall*)(IDXGISwapChain* pSwapchain, UINT syncInterval, UINT flags);
+PresentHook PresentFunc = nullptr;
 
 BOOL WINAPI MainThread(HMODULE hModule)
 {
@@ -13,11 +18,13 @@ BOOL WINAPI MainThread(HMODULE hModule)
     AllocConsole();
     freopen("CONOUT$","w", stdout);
 
-    const uintptr_t address = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
-    codeCaveAddrs = Trampoline((char*)address, (char*)&EntityHook, 8);
+    const uintptr_t hookEntityAddrs = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
+    const uintptr_t dxgiPresentFunctionAddrs = (uintptr_t)GetModuleHandle(L"dxgi.dll") + (uintptr_t)0xA4810;
+
+    codeCaveAddrs = Trampoline((char*)hookEntityAddrs, (char*)&EntityHook, 8);
 
 #ifdef _DEBUG
-    std::printf("address : %x\naddress of codecave : %x\n", address, codeCaveAddrs);
+    std::printf("address : %x\naddress of codecave : %x\n address of dxgi present : %x\n", hookEntityAddrs, codeCaveAddrs, dxgiPresentFunctionAddrs);
 #endif
 
     while (true)
