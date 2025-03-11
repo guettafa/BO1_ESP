@@ -7,7 +7,7 @@
 #define NAKED __declspec(naked)
 
 using Present  = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion);
-using EndScene = HRESULT(__stdcall*)(void);
+using EndScene = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice);
 
 namespace Hook
 {
@@ -25,7 +25,7 @@ namespace Hook
 
 
 	HRESULT   __stdcall PresentHook(IDirect3DDevice9* pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion);
-	HRESULT   __stdcall EndSceneHook(void);
+	HRESULT   __stdcall EndSceneHook(IDirect3DDevice9* pDevice);
 	void				EntityHook();
 	void				PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes);
 	uintptr_t			Trampoline(char* src, char* dst, size_t size);

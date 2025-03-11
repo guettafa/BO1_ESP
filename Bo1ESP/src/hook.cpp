@@ -26,13 +26,15 @@ HRESULT __stdcall Hook::PresentHook(IDirect3DDevice9* pDevice, const RECT* pSrcR
 	return originalPresent(pDevice, pSrcRect, pDestRect, hWindow, pRegion);
 }
 
-HRESULT __stdcall Hook::EndSceneHook(void)
+HRESULT __stdcall Hook::EndSceneHook(IDirect3DDevice9* pDevice)
 {
 	// Own Rendering
+	if (pDevice != nullptr)
+	{
+		std::cout << "Hooked d3d9 EndScene !" << std::endl;
+	}
 
-	std::cout << "Hooked d3d9 EndScene !" << std::endl;
-
-	return originalEndScene();
+	return originalEndScene(pDevice);
 }
 
 NAKED void Hook::EntityHook()
