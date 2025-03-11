@@ -17,15 +17,6 @@ namespace Hook
 	float* xPosOfEnt = nullptr;
 }
 
-HRESULT __stdcall Hook::PresentHook(IDirect3DDevice9* pDevice, const RECT* pSrcRect, const RECT* pDestRect, HWND hWindow, const RGNDATA* pRegion)
-{
-	// Own Rendering
-
-	std::cout << "Hooked d3d9 PRESENT !" << std::endl;
-
-	return originalPresent(pDevice, pSrcRect, pDestRect, hWindow, pRegion);
-}
-
 HRESULT __stdcall Hook::EndSceneHook(IDirect3DDevice9* pDevice)
 {
 	// Own Rendering

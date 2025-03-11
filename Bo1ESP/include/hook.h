@@ -6,11 +6,11 @@
 
 #define NAKED __declspec(naked)
 
-using Present  = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion);
-using EndScene = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice);
-
 namespace Hook
 {
+	using Present = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion);
+	using EndScene = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice);
+
 	extern std::unordered_map<uintptr_t, bool> entities;
 
 #pragma region Function Ptrs
