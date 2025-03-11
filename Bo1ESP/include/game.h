@@ -8,6 +8,7 @@ namespace Game
 
 	namespace Offsets
 	{
-		constexpr const uintptr_t d3d9PresentFunctionOffsets = 0x43DE0;
+		constexpr const uintptr_t d3d9PresentFunctionOffsets  = 0x43DE0;
+		constexpr const uintptr_t d3d9EndSceneFunctionOffsets = 0x66420;
 	}
 }

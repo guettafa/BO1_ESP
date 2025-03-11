@@ -16,18 +16,22 @@ VOID CreateConsole()
 BOOL WINAPI MainThread(HMODULE hModule)
 {
     using namespace Hook;
+
     CreateConsole();
 
+    //69E7B4C0
+    // GameOverlayRenderer.dll offset Present function hook : 0x6B4C0
+    //const uintptr_t d3d9PresentFunctionAddrs = (uintptr_t)GetModuleHandle(L"GameOverlayRenderer.dll") + (uintptr_t)0x6B4C0;
+
     const uintptr_t hookEntityAddrs = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
-    const uintptr_t d3d9PresentFunctionAddrs = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::Offsets::d3d9PresentFunctionOffsets;
+    const uintptr_t d3d9PresentFunctionAddrs = (uintptr_t)GetModuleHandle(L"d3d9.dll") +  (uintptr_t)Game::Offsets::d3d9PresentFunctionOffsets;
+    const uintptr_t d3d9EndSceneFunctionAddrs = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::Offsets::d3d9EndSceneFunctionOffsets;
 
-    codeCaveAddrs   =           Trampoline((char*)hookEntityAddrs, (char*)&EntityHook, 8);
-    originalPresent = (Present) Trampoline((char*)d3d9PresentFunctionAddrs, (char*)&PresentHook, 5);
+    printf("functioin addrs : %x\n", d3d9PresentFunctionAddrs);
 
-
-#ifdef _DEBUG
-    std::printf("address : %x\naddress of codecave : %x\naddress of dxgi present : %x\n", hookEntityAddrs, codeCaveAddrs, d3d9PresentFunctionAddrs);
-#endif
+    codeCaveAddrs   = Trampoline((char*)hookEntityAddrs, (char*)&EntityHook, 8);
+    //originalPresent  = (Present)Trampoline((char*)d3d9PresentFunctionAddrs, (char*)&PresentHook, 5);
+    originalEndScene = (EndScene)Trampoline((char*)d3d9EndSceneFunctionAddrs, (char*)&EndSceneHook, 7);
 
     while (true)
     {

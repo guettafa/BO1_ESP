@@ -6,7 +6,8 @@
 namespace Hook
 {
 	// Function Pointers for Hooks
-	Present originalPresent = nullptr;
+	Present  originalPresent  = nullptr;
+	EndScene originalEndScene = nullptr;
 
 	std::unordered_map<uintptr_t, bool> entities{};
 	uintptr_t entityAddrs			 = 0;
@@ -20,9 +21,18 @@ HRESULT __stdcall Hook::PresentHook(IDirect3DDevice9* pDevice, const RECT* pSrcR
 {
 	// Own Rendering
 
-	std::cout << "Hooked DXGI PRESENT !" << std::endl;
+	std::cout << "Hooked d3d9 PRESENT !" << std::endl;
 
 	return originalPresent(pDevice, pSrcRect, pDestRect, hWindow, pRegion);
+}
+
+HRESULT __stdcall Hook::EndSceneHook(void)
+{
+	// Own Rendering
+
+	std::cout << "Hooked d3d9 EndScene !" << std::endl;
+
+	return originalEndScene();
 }
 
 NAKED void Hook::EntityHook()
