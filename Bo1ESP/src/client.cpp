@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "client.h"
 
 MODULEINFO Client::GetModuleInfo(const wchar_t* moduleName)

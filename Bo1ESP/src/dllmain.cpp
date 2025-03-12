@@ -1,9 +1,7 @@
-
-#include "pch.h"
 #include "client.h"
+#include "trampoline.h"
 #include "hook.h"
 #include "game.h"
-#include <iostream>
 
 #pragma warning(disable: 4996)
 
@@ -19,11 +17,15 @@ BOOL WINAPI MainThread(HMODULE hModule)
 
     CreateConsole();
 
-    const uintptr_t hookEntityAddrs = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
-    const uintptr_t d3d9EndSceneFunctionAddrs = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::Offsets::d3d9EndSceneFunctionOffsets;
+    const uintptr_t hookEntityAddrs           = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
+    const uintptr_t d3d9EndSceneFunctionAddrs = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::Offsets::d3d9EndSceneFunctionRVA;
 
-    codeCaveAddrs    = Trampoline((char*)hookEntityAddrs, (char*)&EntityHook, 8);
-    originalEndScene = (EndScene)Trampoline((char*)d3d9EndSceneFunctionAddrs, (char*)&EndSceneHook, 7);
+#pragma region Placing Hooks
+
+    codeCave         =            Trampoline((char*)hookEntityAddrs,           (char*)&EntityHook,   8);
+    originalEndScene = (EndScene) Trampoline((char*)d3d9EndSceneFunctionAddrs, (char*)&EndSceneHook, 7);
+
+#pragma endregion
 
     while (true)
     {
