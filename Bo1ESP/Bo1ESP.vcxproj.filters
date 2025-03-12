@@ -13,11 +13,20 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{98b62536-038a-42c2-817f-478364fc6c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\ImGui">
+      <UniqueIdentifier>{d301e6b4-50d8-49da-99af-768cfd35d845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\ImGui\Header">
+      <UniqueIdentifier>{94140abf-6de7-4693-bdd2-613d45a53d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\ImGui\Source">
+      <UniqueIdentifier>{64020f54-21ff-4738-9046-766f8bb6b261}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -27,18 +36,66 @@
     <ClInclude Include="include\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lib\imgui\imconfig.h">
+      <Filter>Libraries\ImGui\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imgui.h">
+      <Filter>Libraries\ImGui\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\backends\imgui_impl_dx9.h">
+      <Filter>Libraries\ImGui\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\backends\imgui_impl_win32.h">
+      <Filter>Libraries\ImGui\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imgui_internal.h">
+      <Filter>Libraries\ImGui\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imstb_rectpack.h">
+      <Filter>Libraries\ImGui\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imstb_textedit.h">
+      <Filter>Libraries\ImGui\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imstb_truetype.h">
+      <Filter>Libraries\ImGui\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\trampoline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\hook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui.cpp">
+      <Filter>Libraries\ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_demo.cpp">
+      <Filter>Libraries\ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_draw.cpp">
+      <Filter>Libraries\ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\backends\imgui_impl_dx9.cpp">
+      <Filter>Libraries\ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>Libraries\ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_tables.cpp">
+      <Filter>Libraries\ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_widgets.cpp">
+      <Filter>Libraries\ImGui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\trampoline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
