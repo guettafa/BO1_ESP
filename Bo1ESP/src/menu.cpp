@@ -3,14 +3,13 @@
 namespace Menu
 {
 	HWND g_hWnd				= nullptr;
-	BOOL g_imguiInitialized = FALSE;
-	BOOL g_isMenuOpen		= TRUE;
+	bool g_imguiInitialized = false;
+	bool g_isMenuOpen		= true;
 }
 
 VOID Menu::InitImGui(IDirect3DDevice9* pDevice)
 {
-	if (g_imguiInitialized) 
-		return;
+	if (g_imguiInitialized) return;
 
 	g_hWnd = GetForegroundWindow();
 
@@ -21,16 +20,17 @@ VOID Menu::InitImGui(IDirect3DDevice9* pDevice)
 	ImGui_ImplWin32_Init(g_hWnd);
 	ImGui_ImplDX9_Init(pDevice);
 	
-	g_imguiInitialized = TRUE;
+	g_imguiInitialized = true;
 }
 
 VOID Menu::RenderMenu()
 {
-	if (!g_isMenuOpen)
-		return;
+	if (!g_isMenuOpen) return;
 
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
+
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 	ImGui::NewFrame();
 

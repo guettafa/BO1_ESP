@@ -2,6 +2,7 @@
 #include "trampoline.h"
 #include "hook.h"
 #include "game.h"
+#include "menu.h"
 
 #pragma warning(disable: 4996)
 
@@ -29,6 +30,11 @@ BOOL WINAPI MainThread(HMODULE hModule)
 
     while (true)
     {
+        if (GetAsyncKeyState(VK_HOME) & 0x01)
+        {
+            Menu::g_isMenuOpen = !Menu::g_isMenuOpen;
+        }
+
         if (GetAsyncKeyState(VK_DOWN))
             break;
     }
