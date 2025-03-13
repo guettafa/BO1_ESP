@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Windows.h>
+#include <windows.h>
 #include <iostream>
 
 void		PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes) noexcept;

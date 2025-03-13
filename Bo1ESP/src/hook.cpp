@@ -1,6 +1,9 @@
 #include "hook.h"
 #include "game.h"
+#include "menu.h"
 #include <iostream>
+
+bool testInit = false;
 
 namespace Hook
 {
@@ -16,11 +19,37 @@ namespace Hook
 
 HRESULT __stdcall Hook::EndSceneHook(IDirect3DDevice9* pDevice)
 {
-	// Own Rendering
-	if (pDevice != nullptr)
+	//Menu::InitImGui(pDevice);
+	//Menu::RenderMenu();
+
+	if (!testInit)
 	{
-		std::cout << "Hooked d3d9 EndScene !" << std::endl;
+		HWND g_hWnd = GetForegroundWindow();
+
+		ImGui::CreateContext();
+
+		ImGui::StyleColorsDark();
+
+		ImGui_ImplWin32_Init(g_hWnd);
+		ImGui_ImplDX9_Init(pDevice);
+		testInit = true;
 	}
+
+	ImGui_ImplDX9_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+
+	ImGui::NewFrame();
+
+	ImGui::Begin("Hello, world!");
+	{
+		ImGui::Text("Hello B01");
+	}
+	ImGui::End();
+
+	ImGui::EndFrame();
+	ImGui::Render();
+	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+	
 	return originalEndScene(pDevice);
 }
 
