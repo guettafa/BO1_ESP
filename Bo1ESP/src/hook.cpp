@@ -19,36 +19,8 @@ namespace Hook
 
 HRESULT __stdcall Hook::EndSceneHook(IDirect3DDevice9* pDevice)
 {
-	//Menu::InitImGui(pDevice);
-	//Menu::RenderMenu();
-
-	if (!testInit)
-	{
-		HWND g_hWnd = GetForegroundWindow();
-
-		ImGui::CreateContext();
-
-		ImGui::StyleColorsDark();
-
-		ImGui_ImplWin32_Init(g_hWnd);
-		ImGui_ImplDX9_Init(pDevice);
-		testInit = true;
-	}
-
-	ImGui_ImplDX9_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-
-	ImGui::NewFrame();
-
-	ImGui::Begin("Hello, world!");
-	{
-		ImGui::Text("Hello B01");
-	}
-	ImGui::End();
-
-	ImGui::EndFrame();
-	ImGui::Render();
-	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+	Menu::InitImGui(pDevice);
+	Menu::RenderMenu();
 	
 	return originalEndScene(pDevice);
 }
