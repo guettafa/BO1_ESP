@@ -3,8 +3,6 @@
 #include "menu.h"
 #include <iostream>
 
-bool testInit = false;
-
 namespace Hook
 {
 	EndScene originalEndScene = nullptr;
