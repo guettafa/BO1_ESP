@@ -17,8 +17,8 @@ namespace Hook
 
 HRESULT __stdcall Hook::EndSceneHook(IDirect3DDevice9* pDevice)
 {
-	Menu::InitImGui(pDevice);
-	Menu::RenderMenu();
+	Menu::Init(pDevice);
+	Menu::Render();
 	
 	return originalEndScene(pDevice);
 }

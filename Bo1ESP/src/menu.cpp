@@ -2,13 +2,12 @@
 
 namespace Menu
 {
-	HWND  hWnd				 = nullptr;
-	ImDrawList* drawList	 = nullptr;
-	bool  isImguiInitialized = false;
-	bool  isMenuOpen		 = true;
+	HWND		hWnd			   = nullptr;
+	bool		isImguiInitialized = false;
+	bool		isMenuOpen		   = true;
 }
 
-VOID Menu::InitImGui(IDirect3DDevice9* pDevice)
+VOID Menu::Init(IDirect3DDevice9* pDevice)
 {
 	if (isImguiInitialized) return;
 
@@ -24,7 +23,7 @@ VOID Menu::InitImGui(IDirect3DDevice9* pDevice)
 	isImguiInitialized = true;
 }
 
-VOID Menu::RenderMenu()
+VOID Menu::Render()
 {
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
@@ -46,18 +45,24 @@ VOID Menu::RenderMenu()
 			ImGui::Text("FPS : %.2f", io.Framerate);
 			ImGui::Text("Mouse Data: x - %f / y - %f", io.MousePos.x, io.MousePos.y);
 			ImGui::Text("Capture : %d", io.WantCaptureMouse);
-			ImGui::Text("Hello B01");
+
+			ImGui::Separator();
+
+			ImGui::Checkbox("Lines",     &Settings::isLinesEnabled);
+			ImGui::Checkbox("Boxes",     &Settings::isBoxesEnabled);
+			ImGui::Checkbox("Skeletons", &Settings::isSkeletonsEnabled);
 		}
 		ImGui::End();
 	}
 
-	// Render ESP
+	// Render Visuals
 	
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
 	ImGui::SetNextWindowSize(io.DisplaySize);
-	ImGui::Begin("drawables", nullptr, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
-		drawList = ImGui::GetWindowDrawList();
-		drawList->AddLine(ImVec2(1920 / 2, 1080), ImVec2(1920/2, 1080/2), IM_COL32(255, 255, 255, 255), 0.5f);
+
+	ImGui::Begin("Visuals", nullptr, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
+		Drawer::drawList = ImGui::GetWindowDrawList();
+		Drawer::Draw();
 	ImGui::End();
 
 	ImGui::EndFrame();
@@ -72,5 +77,5 @@ VOID Menu::Cleanup()
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 
-	isImguiInitialized = FALSE;
+	isImguiInitialized = false;
 }

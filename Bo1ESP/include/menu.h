@@ -6,17 +6,15 @@
 #include <windows.h>
 #include <iostream>
 
-#include "drawable.h"
+#include "drawer.h"
 
 namespace Menu
 {
 	extern HWND      hWnd;
-	//extern Drawable drawer;
-	extern ImDrawList* drawList;
 	extern bool      isImguiInitialized;
 	extern bool      isMenuOpen;
 
-	VOID InitImGui(IDirect3DDevice9* pDevice);
-	VOID RenderMenu();
+	VOID Init(IDirect3DDevice9* pDevice);
+	VOID Render();
 	VOID Cleanup();
 }
