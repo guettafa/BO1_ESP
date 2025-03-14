@@ -186,6 +186,7 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\features\features.h" />
     <ClCompile Include="lib\imgui\backends\imgui_impl_dx9.cpp" />
     <ClCompile Include="lib\imgui\backends\imgui_impl_win32.cpp" />
     <ClCompile Include="lib\imgui\imgui.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="lib\imgui\imgui_draw.cpp" />
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\features\features.cpp" />
     <ClCompile Include="src\hook.cpp" />
     <ClCompile Include="src\client.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
