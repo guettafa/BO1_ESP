@@ -10,13 +10,13 @@ void PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes) noexcept
 
 	std::memcpy(stolenBytes, src, size);
 
-	*src = 0xE9; // Place jmp in the address we want to jump from
+	*src = JMP; // Place jmp in the address we want to jump from
 
 	uintptr_t rva = ((uintptr_t)dst - (uintptr_t)src) - 5; // 5 is for the jmp
 	*(uintptr_t*)(src + 1) = rva;  // Place rva after the jmp
 
 	if (size - 5 > 0)
-		std::memset(src + 5, 0x90, size - 5);
+		std::memset(src + 5, NOP, size - 5);
 
 	VirtualProtect(src, size, dwOld, &dwOld); // Restore access
 }
@@ -33,7 +33,7 @@ uintptr_t Trampoline(char* src, char* dst, size_t size) noexcept
 
 	uintptr_t rvaToGoBack = src - codeCaveAddrs - 5;
 
-	*(uintptr_t*)(codeCaveAddrs + size) = 0xE9; // place jmp so we can jump back after all stolen bytes
+	*(uintptr_t*)(codeCaveAddrs + size) = JMP; // place jmp so we can jump back after all stolen bytes
 	*(uintptr_t*)(codeCaveAddrs + size + 1) = rvaToGoBack;
 
 	return (uintptr_t)(codeCaveAddrs);

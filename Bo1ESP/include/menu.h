@@ -8,9 +8,9 @@
 
 namespace Menu
 {
-	extern HWND g_hWnd;
-	extern bool g_imguiInitialized;
-	extern bool g_isMenuOpen;
+	extern HWND  g_hWnd;
+	extern bool  g_imguiInitialized;
+	extern bool  g_isMenuOpen;
 
 	VOID InitImGui(IDirect3DDevice9* pDevice);
 	VOID RenderMenu();

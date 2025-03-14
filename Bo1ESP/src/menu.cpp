@@ -2,9 +2,9 @@
 
 namespace Menu
 {
-	HWND g_hWnd				= nullptr;
-	bool g_imguiInitialized = false;
-	bool g_isMenuOpen		= true;
+	HWND  g_hWnd		     = nullptr;
+	bool  g_imguiInitialized = false;
+	bool  g_isMenuOpen		 = true;
 }
 
 VOID Menu::InitImGui(IDirect3DDevice9* pDevice)
@@ -25,22 +25,27 @@ VOID Menu::InitImGui(IDirect3DDevice9* pDevice)
 
 VOID Menu::RenderMenu()
 {
-	if (!g_isMenuOpen) return;
-
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.MouseDrawCursor = g_isMenuOpen;
+
+	io.MouseDown[0] = (GetKeyState(VK_LBUTTON) & 0x8000) != 0;
+	io.MouseDown[1] = (GetKeyState(VK_RBUTTON) & 0x8000) != 0;
+
+	if (!g_isMenuOpen) return;
 
 	ImGui::NewFrame();
-
 	ImGui::Begin("Hello, world!");
 	{
+		ImGui::Text("Mouse Data: x - %f / y - %f", io.MousePos.x, io.MousePos.y);
+		ImGui::Text("Capture : %d", io.WantCaptureMouse);
 		ImGui::Text("Hello B01");
 	}
 	ImGui::End();
-
 	ImGui::EndFrame();
+
 	ImGui::Render();
 	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
 }

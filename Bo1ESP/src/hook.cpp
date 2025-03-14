@@ -35,8 +35,8 @@ NAKED void Hook::EntityHook()
 
 	xPosOfEnt = reinterpret_cast<float*>(entityAddrs + 0x18);
 
-	std::printf("size   : %d\n", entities.size());
-	std::printf("xpos   : %f\n", *xPosOfEnt);
+	//std::printf("size   : %d\n", entities.size());
+	//std::printf("xpos   : %f\n", *xPosOfEnt);
 
 	__asm
 	{
