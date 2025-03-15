@@ -16,7 +16,13 @@ namespace Game
 								//			0x0448
 	
 	constexpr const uintptr_t AlocalPlayerEntity = 0x1a796f8;
+	constexpr const uintptr_t AEntityList		 = 0x1A7983C;
 	constexpr const uintptr_t AViewMatrix		 = 0x0BA930;
+	
+	namespace Offsets
+	{
+		constexpr const uintptr_t OSpaceBetweenEntity = 0x8C;
+	}
 
 	namespace RVA
 	{
