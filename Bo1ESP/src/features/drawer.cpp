@@ -5,12 +5,11 @@ namespace Drawer
 	ImDrawList* drawList = nullptr;
 }
 
-void Drawer::Draw()
+void Drawer::Draw(const ImVec2* displaySize)
 {
 	if (Settings::isLinesEnabled)
 	{
-		// draw lines on each entity
-		Visual::Line(ImVec2(1920 / 2, 1080 / 2), drawList);
+		Visual::Line(ImVec2(displaySize->x / 2, displaySize->y / 2), drawList, displaySize);
 	}
 
 	if (Settings::isBoxesEnabled)
