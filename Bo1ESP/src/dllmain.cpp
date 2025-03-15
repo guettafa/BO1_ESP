@@ -4,12 +4,11 @@
 #include "game.h"
 #include "menu.h"
 
-#pragma warning(disable: 4996)
-
 VOID CreateConsole()
 {
     AllocConsole();
-    freopen("CONOUT$", "w", stdout);
+    FILE* file;
+    freopen_s(&file,"CONOUT$", "w", stdout);
 }
 
 BOOL WINAPI MainThread(HMODULE hModule)
@@ -19,7 +18,7 @@ BOOL WINAPI MainThread(HMODULE hModule)
     CreateConsole();
 
     const uintptr_t hookEntityAddrs           = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
-    const uintptr_t d3d9EndSceneFunctionAddrs = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::Offsets::d3d9EndSceneFunctionRVA;
+    const uintptr_t d3d9EndSceneFunctionAddrs = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::RVA::d3d9EndSceneFunction;
 
 #pragma region Placing Hooks
 
@@ -35,7 +34,7 @@ BOOL WINAPI MainThread(HMODULE hModule)
             Menu::isMenuOpen = !Menu::isMenuOpen;
         }
 
-        if (GetAsyncKeyState(VK_DOWN))
+        if (GetAsyncKeyState(VK_END))
             break;
     }
 

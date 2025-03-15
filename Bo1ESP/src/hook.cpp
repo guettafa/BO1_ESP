@@ -1,7 +1,5 @@
 #include "hook.h"
-#include "game.h"
-#include "menu.h"
-#include <iostream>
+
 
 namespace Hook
 {
@@ -12,7 +10,8 @@ namespace Hook
 	uintptr_t xPosOfEntAddrs		 = 0;
 	uintptr_t codeCave			     = 0;
 
-	float* xPosOfEnt = nullptr;
+	Game::Entity* entity = nullptr;
+	//float* xPosOfEnt = nullptr;
 }
 
 HRESULT __stdcall Hook::EndSceneHook(IDirect3DDevice9* pDevice)
@@ -33,10 +32,10 @@ NAKED void Hook::EntityHook()
 	if (!entities[entityAddrs] && entityAddrs != Game::localPlayerEntityAddrs)
 		entities[entityAddrs] += 1;
 
-	xPosOfEnt = reinterpret_cast<float*>(entityAddrs + 0x18);
+	entity = reinterpret_cast<Game::Entity*>(entityAddrs);
 
-	//std::printf("size   : %d\n", entities.size());
-	//std::printf("xpos   : %f\n", *xPosOfEnt);
+	std::printf("size   : %d\n", entities.size());
+	std::printf("xpos   : %f\n", entity->xyxPos.x);
 
 	__asm
 	{
