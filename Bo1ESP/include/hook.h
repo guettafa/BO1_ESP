@@ -13,17 +13,16 @@ namespace Hook
 {
 #pragma region Function Ptrs
 	using  EndScene = HRESULT(__stdcall*)(IDirect3DDevice9* pDevice);
-	extern EndScene originalEndScene;
+	extern EndScene AOriginalEndScene;
 #pragma endregion
 
-	extern uintptr_t						   entityAddrs;
-	extern uintptr_t						   codeCave;
+	extern uintptr_t							AEntity;
+	extern uintptr_t							ACodeCave;
+	extern std::unordered_map<uintptr_t, bool>	entities;
+	extern Game::Entity*						tempEntity;
 
-	extern std::unordered_map<uintptr_t, bool> entities;
-	
-	extern Game::Entity*					   tempEntity;
-
-
+#pragma region Hooks
 	HRESULT   __stdcall EndSceneHook(IDirect3DDevice9* pDevice); // Hooking EndScene d3d9 function to render my own things
 	void				EntityHook();							 // Retrieve from esi the entity address when function is called and add it to entity vector
+#pragma endregion
 }

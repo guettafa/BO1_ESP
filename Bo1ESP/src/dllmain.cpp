@@ -1,4 +1,4 @@
-#include "client.h"
+#include "pattern.h"
 #include "trampoline.h"
 #include "hook.h"
 #include "game.h"
@@ -17,13 +17,13 @@ BOOL WINAPI MainThread(HMODULE hModule)
 
     CreateConsole();
 
-    const uintptr_t hookEntityAddrs           = Client::FindPattern(L"BlackOps.exe", Client::entityInstructionPattern, 53);
-    const uintptr_t d3d9EndSceneFunctionAddrs = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::RVA::d3d9EndSceneFunction;
+    const uintptr_t AHookEntity           = Pattern::FindPattern(L"BlackOps.exe", Pattern::PEntityInstruction, 53);
+    const uintptr_t AD3d9EndSceneFunction = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::RVA::RVAd3d9EndSceneFunction;
 
 #pragma region Placing Hooks
 
-    codeCave         =            Trampoline((char*)hookEntityAddrs,           (char*)&EntityHook,   8);
-    originalEndScene = (EndScene) Trampoline((char*)d3d9EndSceneFunctionAddrs, (char*)&EndSceneHook, 7);
+    ACodeCave         =            Trampoline((char*)AHookEntity,           (char*)&EntityHook,   8);
+    AOriginalEndScene = (EndScene) Trampoline((char*)AD3d9EndSceneFunction, (char*)&EndSceneHook, 7);
 
 #pragma endregion
 

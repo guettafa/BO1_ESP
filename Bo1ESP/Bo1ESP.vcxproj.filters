@@ -27,7 +27,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\client.h">
+    <ClInclude Include="include\pattern.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\hook.h">
@@ -75,12 +75,15 @@
     <ClInclude Include="include\features\drawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\client.cpp">
+    <ClCompile Include="src\pattern.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\hook.cpp">

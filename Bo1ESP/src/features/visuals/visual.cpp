@@ -1,10 +1,5 @@
 #include "visuals/visual.h"
 
-ImVec2 Visual::WorldToScreen(float x, float y, float z) noexcept
-{
-	return ImVec2();
-}
-
 void Visual::Line(const ImVec2 xyPos, ImDrawList* drawList, const ImVec2* displaySize) noexcept
 {
 	drawList->AddLine(ImVec2(displaySize->x / 2, displaySize->y), xyPos, IM_COL32(255, 255, 255, 255), 0.5f);

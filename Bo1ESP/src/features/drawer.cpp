@@ -5,6 +5,11 @@ namespace Drawer
 	ImDrawList* drawList = nullptr;
 }
 
+ImVec2 Drawer::WorldToScreen(Vector3 xyzPos) noexcept
+{
+	return ImVec2();
+}
+
 void Drawer::Draw(const ImVec2* displaySize) noexcept
 {
 	using namespace Settings;

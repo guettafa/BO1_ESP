@@ -3,15 +3,14 @@
 
 namespace Hook
 {
-	EndScene originalEndScene = nullptr;
-
-	uintptr_t entityAddrs = 0;
-	uintptr_t codeCave    = 0;
+	EndScene  AOriginalEndScene = nullptr;
+	uintptr_t AEntity			= 0;
+	uintptr_t ACodeCave			= 0;
 
 	// can be replaced with a Set instead so we dont have to check if already in
 	std::unordered_map<uintptr_t, bool> entities{};
 
-	Game::Entity* tempEntity = nullptr;
+	Game::Entity* tempEntity   = nullptr;
 }
 
 HRESULT __stdcall Hook::EndSceneHook(IDirect3DDevice9* pDevice)
@@ -19,26 +18,26 @@ HRESULT __stdcall Hook::EndSceneHook(IDirect3DDevice9* pDevice)
 	Menu::Init(pDevice);
 	Menu::Render();
 	
-	return originalEndScene(pDevice);
+	return AOriginalEndScene(pDevice);
 }
 
 NAKED void Hook::EntityHook()
 {
 	__asm
 	{
-		mov[entityAddrs], esi
+		mov[AEntity], esi
 	}
 
-	if (!entities[entityAddrs] && entityAddrs != Game::localPlayerEntityAddrs)
-		entities[entityAddrs] += 1;
+	if (!entities[AEntity] && AEntity != Game::AlocalPlayerEntity)
+		entities[AEntity] += 1;
 
-	tempEntity = reinterpret_cast<Game::Entity*>(entityAddrs);
+	tempEntity = reinterpret_cast<Game::Entity*>(AEntity);
 
 	std::printf("size   : %d\n", entities.size());
-	std::printf("xpos   : %f\n", tempEntity->xyzPos.x);
+	std::printf("xpos   : %f\n", tempEntity->positions.x);
 
 	__asm
 	{
-		jmp[codeCave]
+		jmp[ACodeCave]
 	}
 }
