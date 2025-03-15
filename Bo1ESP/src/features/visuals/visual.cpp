@@ -2,6 +2,7 @@
 
 void Visual::Line(const ImVec2 xyPos, ImDrawList* drawList, const ImVec2* displaySize) noexcept
 {
+	ImGui::Text("W2S - x : %f y : %f", xyPos.x, xyPos.y);
 	drawList->AddLine(ImVec2(displaySize->x / 2, displaySize->y), xyPos, IM_COL32(255, 255, 255, 255), 0.5f);
 }
 

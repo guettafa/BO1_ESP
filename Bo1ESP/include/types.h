@@ -7,5 +7,5 @@ struct Vector3
 
 struct ViewMatrix
 {
-	float* Matrix[16];
+	float Matrix[16];
 };

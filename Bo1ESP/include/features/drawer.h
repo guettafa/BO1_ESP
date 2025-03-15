@@ -4,10 +4,12 @@
 #include "settings.h"
 #include "types.h"
 
+#include "hook.h"
+
 namespace Drawer
 {
 	extern ImDrawList* drawList;
 
-	ImVec2 WorldToScreen (Vector3 xyzPos) noexcept;
-	void   Draw			 (const ImVec2* diplaySize) noexcept;
+	bool   WorldToScreen (const Vector3* xyzPos, ImVec2* xyPos, const float* matrix) noexcept;
+	void   Draw			 (ImVec2* diplaySize) noexcept;
 }

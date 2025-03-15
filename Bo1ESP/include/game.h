@@ -17,7 +17,7 @@ namespace Game
 	
 	constexpr const uintptr_t AlocalPlayerEntity = 0x1a796f8;
 	constexpr const uintptr_t AEntityList		 = 0x1A7983C;
-	constexpr const uintptr_t AViewMatrix		 = 0x0BA930;
+	constexpr const uintptr_t AViewMatrix		 = 0x0BA6930;
 	
 	namespace Offsets
 	{
