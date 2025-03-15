@@ -176,8 +176,6 @@
     <ClInclude Include="include\hook.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\menu.h" />
-    <ClInclude Include="include\opcode.h" />
-    <ClInclude Include="include\sdk\entity.h" />
     <ClInclude Include="include\trampoline.h" />
     <ClInclude Include="include\features\settings.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_dx9.h" />

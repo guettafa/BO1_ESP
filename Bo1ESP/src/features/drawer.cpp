@@ -5,20 +5,22 @@ namespace Drawer
 	ImDrawList* drawList = nullptr;
 }
 
-void Drawer::Draw(const ImVec2* displaySize)
+void Drawer::Draw(const ImVec2* displaySize) noexcept
 {
-	if (Settings::isLinesEnabled)
+	using namespace Settings;
+
+	if (isLinesEnabled)
 	{
 		Visual::Line(ImVec2(displaySize->x / 2, displaySize->y / 2), drawList, displaySize);
 	}
 
-	if (Settings::isBoxesEnabled)
+	if (isBoxesEnabled)
 	{
 		// draw boxes on each entity
 		Visual::Box(drawList);
 	}
 
-	if (Settings::isSkeletonsEnabled)
+	if (isSkeletonsEnabled)
 	{
 		// draw skeleton on each entity
 		Visual::Skeleton(drawList);

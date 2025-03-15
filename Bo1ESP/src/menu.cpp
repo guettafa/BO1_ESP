@@ -23,7 +23,7 @@ VOID Menu::Init(IDirect3DDevice9* pDevice)
 	isImguiInitialized = true;
 }
 
-VOID Menu::Render()
+VOID Menu::Render() 
 {
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();

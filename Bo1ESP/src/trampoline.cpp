@@ -1,6 +1,6 @@
 #include "trampoline.h"
 
-void PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes) noexcept
+void PlaceJmp(char* src, char* dst, const size_t size, DWORD* stolenBytes) noexcept
 {
 	// To restore old state later
 	DWORD dwOld;
@@ -21,7 +21,7 @@ void PlaceJmp(char* src, char* dst, size_t size, DWORD* stolenBytes) noexcept
 	VirtualProtect(src, size, dwOld, &dwOld); // Restore access
 }
 
-uintptr_t Trampoline(char* src, char* dst, size_t size) noexcept
+uintptr_t Trampoline(char* src, char* dst, const size_t size) noexcept
 {
 	BYTE* stolenBytes = new BYTE[size];
 

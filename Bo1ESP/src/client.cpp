@@ -1,6 +1,6 @@
 #include "client.h"
 
-MODULEINFO Client::GetModuleInfo(const wchar_t* moduleName)
+MODULEINFO Client::GetModuleInfo(const wchar_t* moduleName) noexcept
 {
 	MODULEINFO moduleInfo;
 
@@ -12,7 +12,7 @@ MODULEINFO Client::GetModuleInfo(const wchar_t* moduleName)
 	return moduleInfo;
 }
 
-uintptr_t Client::FindPattern(const wchar_t* moduleName, const char* pattern, int patternLength)
+uintptr_t Client::FindPattern(const wchar_t* moduleName, const char* pattern, int patternLength) noexcept
 {
 	MODULEINFO moduleInfo  = GetModuleInfo(moduleName);
 	DWORD      imageSize   = moduleInfo.SizeOfImage;

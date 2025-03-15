@@ -66,9 +66,6 @@
     <ClInclude Include="include\menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\opcode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\features\visuals\visual.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -76,9 +73,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\features\drawer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sdk\entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

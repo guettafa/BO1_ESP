@@ -7,5 +7,5 @@ namespace Drawer
 {
 	extern ImDrawList* drawList;
 
-	void Draw(const ImVec2* diplaySize);
+	void Draw(const ImVec2* diplaySize) noexcept;
 }
