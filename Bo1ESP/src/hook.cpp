@@ -33,14 +33,12 @@ NAKED void Hook::EntityHook()
 	if (!entities[AEntity] && AEntity != Game::AlocalPlayerEntity)
 		entities[AEntity] += 1;
 
-	tempEntity = reinterpret_cast<Game::Entity*>(AEntity);
+	//tempEntity = reinterpret_cast<Game::Entity*>(AEntity);
 
-	Drawer::WorldToScreen(&(tempEntity->positions), &xyPos, reinterpret_cast<ViewMatrix*>(Game::AViewMatrix)->Matrix);
-	
-	std::printf("size   : %d\n", entities.size());
+	/*std::printf("size   : %d\n", entities.size());
 	std::printf("xpos   : %f\n", tempEntity->positions.x);
 
-	std::printf("xy pos w2s : %f : %f\n", xyPos.x, xyPos.y);
+	std::printf("xy pos w2s : %f : %f\n", xyPos.x, xyPos.y);*/
 
 
 	__asm
