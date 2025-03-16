@@ -30,9 +30,7 @@ BOOL WINAPI MainThread(HMODULE hModule)
     while (true)
     {
         if (GetAsyncKeyState(VK_HOME) & 0x01)
-        {
             Menu::isMenuOpen = !Menu::isMenuOpen;
-        }
 
         if (GetAsyncKeyState(VK_END))
             break;

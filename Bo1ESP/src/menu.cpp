@@ -62,7 +62,7 @@ VOID Menu::Render()
 
 	ImGui::Begin("Visuals", nullptr, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
 		Drawer::drawList = ImGui::GetWindowDrawList();
-		Drawer::Draw(io.DisplaySize);
+		Drawer::Draw(&io.DisplaySize);
 	ImGui::End();
 
 	ImGui::EndFrame();
