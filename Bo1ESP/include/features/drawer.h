@@ -10,6 +10,6 @@ namespace Drawer
 {
 	extern ImDrawList* drawList;
 
-	bool   WorldToScreen (const Vector3* xyzPos, Vector2* xyPos, const float* matrix, const ImVec2* displaySize) noexcept;
-	void   Draw			 (const ImVec2* displaySize)																	noexcept;
+	bool   WorldToScreen (const Vector3* xyzPos, ImVec2* xyPos, const float* matrix, const ImVec2* displaySize) noexcept;
+	void   Draw			 (const ImVec2* displaySize)															noexcept;
 }

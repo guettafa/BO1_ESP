@@ -5,14 +5,14 @@ namespace Drawer
 	ImDrawList* drawList = nullptr;
 }
 
-bool Drawer::WorldToScreen(const Vector3* xyzPos, Vector2* xyPos, const float* matrix, const ImVec2* displaySize) noexcept
+bool Drawer::WorldToScreen(const Vector3* xyzPos, ImVec2* xyPos, const float* matrix, const ImVec2* displaySize) noexcept
 {
 	xyPos->x = xyzPos->x * matrix[0] + xyzPos->y * matrix[1] + xyzPos->z * matrix[2] + matrix[3];
 	xyPos->y = xyzPos->x * matrix[4] + xyzPos->y * matrix[5] + xyzPos->z * matrix[6] + matrix[7];
 
 	float wan = xyzPos->x * matrix[12] + xyzPos->y * matrix[13] + xyzPos->z * matrix[14] + matrix[15];
 
-	if (wan < 0.01f)
+	if (wan < 0.01f) // us behind me 
 		return false;
 
 	ImVec2 NDC;
@@ -31,18 +31,23 @@ void Drawer::Draw(const ImVec2* displaySize) noexcept
 
 	for (auto& _entity : Hook::entities)
 	{
-		Vector2 xyPos;
-		Game::Entity* entity   = reinterpret_cast<Game::Entity*>(_entity.first);
+		Game::Entity* entity = reinterpret_cast<Game::Entity*>(_entity.first);
+		
+		ImVec2 entPos;
+
 		ViewMatrix* viewMatrix = reinterpret_cast<ViewMatrix*>(Game::AViewMatrix);
 		
-		if (!WorldToScreen(&entity->positions, &xyPos, viewMatrix->Matrix, displaySize))
+		if (!WorldToScreen(&entity->positions, &entPos, viewMatrix->matrix, displaySize))
 			continue;
 
 		if (isLinesEnabled)
-			Visual::Line(ImVec2(xyPos.x, xyPos.y), drawList, displaySize);
+			Visual::Line(entPos, drawList, displaySize);
 
 		if (isBoxesEnabled)
-			Visual::Box(drawList);
+		{
+			ImVec2 headPos;
+			Visual::Box(entPos, headPos, drawList);
+		}
 
 		if (isSkeletonsEnabled)
 			Visual::Skeleton(drawList);
