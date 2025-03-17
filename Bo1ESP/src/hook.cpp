@@ -12,7 +12,7 @@ namespace Hook
 	// can be replaced with a Set instead so we dont have to check if already in
 	std::unordered_map<uintptr_t, bool> entities{};
 
-	Game::Entity* tempEntity   = nullptr;
+	Game::Entity* tempEntity = nullptr;
 }
 
 HRESULT __stdcall Hook::EndSceneHook(IDirect3DDevice9* pDevice)

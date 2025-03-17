@@ -15,7 +15,7 @@ bool Drawer::WorldToScreen(const Vector3* xyzPos, ImVec2* xyPos, const float* ma
 	if (wan < 0.01f) // us behind me 
 		return false;
 
-	ImVec2 NDC;
+	ImVec2 NDC{};
 	NDC.x = xyPos->x / wan;
 	NDC.y = xyPos->y / wan;
 
@@ -29,13 +29,15 @@ void Drawer::Draw(const ImVec2* displaySize) noexcept
 {
 	using namespace Settings;
 
-	for (auto& _entity : Hook::entities)
-	{
-		Game::Entity* entity = reinterpret_cast<Game::Entity*>(_entity.first);
-		
-		ImVec2 entPos;
+	using 
+		Game::AViewMatrix, 
+		Game::Entity;
 
-		ViewMatrix* viewMatrix = reinterpret_cast<ViewMatrix*>(Game::AViewMatrix);
+	for (const auto&[addressOfEnt, val] : Hook::entities)
+	{
+		ImVec2      entPos{};
+		ViewMatrix* viewMatrix = reinterpret_cast<ViewMatrix*>(AViewMatrix);
+		Entity*		entity     = reinterpret_cast<Entity*>(addressOfEnt);
 		
 		if (!WorldToScreen(&entity->positions, &entPos, viewMatrix->matrix, displaySize))
 			continue;
@@ -45,7 +47,7 @@ void Drawer::Draw(const ImVec2* displaySize) noexcept
 
 		if (isBoxesEnabled)
 		{
-			ImVec2 headPos;
+			ImVec2 headPos{};
 			Visual::Box(entPos, headPos, drawList);
 		}
 

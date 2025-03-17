@@ -14,6 +14,7 @@ VOID CreateConsole()
 BOOL WINAPI MainThread(HMODULE hModule)
 {
     using namespace Hook;
+    using Menu::isMenuOpen;
 
     CreateConsole();
 

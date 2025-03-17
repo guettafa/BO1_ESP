@@ -16,7 +16,7 @@ namespace Hook
 	extern EndScene AOriginalEndScene;
 #pragma endregion
 
-	extern ImVec2 xyPos;
+	extern ImVec2								xyPos;
 
 	extern uintptr_t							AEntity;
 	extern uintptr_t							ACodeCave;
