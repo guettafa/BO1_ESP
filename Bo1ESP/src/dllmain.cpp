@@ -1,5 +1,4 @@
-#include "pattern.h"
-#include "trampoline.h"
+#include "memory.h"
 #include "hook.h"
 #include "game.h"
 #include "menu.h"
@@ -14,16 +13,12 @@ VOID CreateConsole()
 BOOL WINAPI MainThread(HMODULE hModule)
 {
     using namespace Hook;
-
     using Menu::isMenuOpen;
-    using SDK::Offsets::OffGetTagPos;
 
     CreateConsole();
 
-    const uintptr_t AHookEntity           = Pattern::FindPattern(L"BlackOps.exe", Pattern::PEntityInstruction, 53);
-    const uintptr_t AD3d9EndSceneFunction = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)SDK::RVA::RVAd3d9EndSceneFunction;
-
-    OGetTagPos = (GetTagPos) SDK::Offsets::OffGetTagPos;
+    const uintptr_t AHookEntity           = FindPattern(L"BlackOps.exe", PEntityInstruction, 53);
+    const uintptr_t AD3d9EndSceneFunction = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)SDK::Addresses::RVAD3d9EndSceneFunction;
 
 #pragma region Placing Hooks
 

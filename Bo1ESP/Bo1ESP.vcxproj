@@ -170,13 +170,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\pattern.h" />
     <ClInclude Include="include\features\drawer.h" />
     <ClInclude Include="include\features\visuals\visual.h" />
     <ClInclude Include="include\hook.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\menu.h" />
-    <ClInclude Include="include\trampoline.h" />
+    <ClInclude Include="include\memory.h" />
     <ClInclude Include="include\features\settings.h" />
     <ClInclude Include="include\types.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_dx9.h" />
@@ -199,11 +198,11 @@
     <ClCompile Include="src\features\drawer.cpp" />
     <ClCompile Include="src\features\settings.cpp" />
     <ClCompile Include="src\features\visuals\visual.cpp" />
+    <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\hook.cpp" />
-    <ClCompile Include="src\pattern.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\menu.cpp" />
-    <ClCompile Include="src\trampoline.cpp" />
+    <ClCompile Include="src\memory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

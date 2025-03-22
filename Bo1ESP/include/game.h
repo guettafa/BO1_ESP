@@ -1,31 +1,37 @@
 #pragma once
 
+#include <stdint.h>
 #include "types.h"
 
 namespace SDK
 {
 	struct Entity
 	{
-		char pad_0000[24];		//			0x0000
-		Vector3 positions;		//			0x0018
-		char pad_0024[100];		//			0x0024
-		int16_t health;			//			0x0088
-		char pad_008A[958];		//			0x008A
-	};							// Size	  : 0x0448
+		char pad_0000[24];		
+		Vector3 positions;		
+		char pad_0024[100];		
+		int16_t health;			
+		char pad_008A[958];		
+	};						
 
-	constexpr const uintptr_t ALocalPlayerEntity = 0x1a796f8;
-	constexpr const uintptr_t AEntityList		 = 0x1A7983C;
-	constexpr const uintptr_t AViewMatrix		 = 0x0BA6970;
-	
-	namespace Offsets
+	enum Addresses : uintptr_t
 	{
-		constexpr const uintptr_t OffGetTagPos		    = 0x7562C0;
-		constexpr const uintptr_t OffSpaceBetweenEntity = 0x8C;
-	}
-	namespace RVA
+		AGetTagPos			= 0x757C80,
+		AFindBoneIdWithName = 0x687530,
+		ALocalPlayerEntity  = 0x1a796f8,
+		AEntityList		    = 0x1A7983C,
+		AViewMatrix		    = 0x0BA6970,
+
+		// RVA's
+		RVAD3d9PresentFunction  = 0x43DE0,  // Present 
+		RVAD3d9EndSceneFunction = 0x66420,  // EndScene
+	};
+
+	enum Offsets : uintptr_t
 	{
-		// From d3d9.dll
-		constexpr const uintptr_t RVAd3d9PresentFunction  = 0x43DE0; // RVA Present  Function
-		constexpr const uintptr_t RVAd3d9EndSceneFunction = 0x66420; // RVA EndScene Function
-	}
+		OffSpaceBetweenEntity = 0x8C,
+	};
+
+	extern int	 (__cdecl* FindBoneWithId) (char* boneName, int a2);
+	extern char* (*		   GetTagPos)	   (float* origin, Entity* entity, char* boneTag);
 }

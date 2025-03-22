@@ -27,9 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\pattern.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -60,7 +57,7 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h">
       <Filter>Libraries\ImGui\Header</Filter>
     </ClInclude>
-    <ClInclude Include="include\trampoline.h">
+    <ClInclude Include="include\memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\menu.h">
@@ -81,9 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pattern.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\hook.cpp">
@@ -110,7 +104,7 @@
     <ClCompile Include="lib\imgui\imgui_widgets.cpp">
       <Filter>Libraries\ImGui\Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\trampoline.cpp">
+    <ClCompile Include="src\memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\menu.cpp">
@@ -123,6 +117,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\features\settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
