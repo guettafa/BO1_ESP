@@ -14,7 +14,6 @@ VOID Menu::Init(IDirect3DDevice9* pDevice)
 	hWnd = GetForegroundWindow();
 
 	ImGui::CreateContext();
-
 	ImGui::StyleColorsDark();
 
 	ImGui_ImplWin32_Init(hWnd);

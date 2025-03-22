@@ -28,17 +28,21 @@ bool Drawer::WorldToScreen(const Vector3* xyzPos, ImVec2* xyPos, const float* ma
 void Drawer::Draw(const ImVec2* displaySize) noexcept
 {
 	using namespace Settings;
-
-	using 
-		Game::AViewMatrix, 
-		Game::Entity;
+	using Hook::GetTagPos, Hook::OGetTagPos;
+	using SDK::AViewMatrix,SDK::Entity;
 
 	for (const auto&[addressOfEnt, val] : Hook::entities)
 	{
 		ImVec2      entPos{};
 		ViewMatrix* viewMatrix = reinterpret_cast<ViewMatrix*>(AViewMatrix);
 		Entity*		entity     = reinterpret_cast<Entity*>(addressOfEnt);
-		
+
+		Vector3 headPos{};
+		void* mesh = nullptr;
+		OGetTagPos(entity, mesh, 2, headPos);
+
+		// Drawing
+
 		if (!WorldToScreen(&entity->positions, &entPos, viewMatrix->matrix, displaySize))
 			continue;
 
@@ -47,6 +51,9 @@ void Drawer::Draw(const ImVec2* displaySize) noexcept
 
 		if (isBoxesEnabled)
 		{
+
+			ImGui::Text("Head Origin - x: %f, y: %f, z: %f", headPos.x, headPos.y, headPos.z);
+
 			ImVec2 headPos{};
 			Visual::Box(entPos, headPos, drawList);
 		}

@@ -14,17 +14,21 @@ VOID CreateConsole()
 BOOL WINAPI MainThread(HMODULE hModule)
 {
     using namespace Hook;
+
     using Menu::isMenuOpen;
+    using SDK::Offsets::OffGetTagPos;
 
     CreateConsole();
 
     const uintptr_t AHookEntity           = Pattern::FindPattern(L"BlackOps.exe", Pattern::PEntityInstruction, 53);
-    const uintptr_t AD3d9EndSceneFunction = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)Game::RVA::RVAd3d9EndSceneFunction;
+    const uintptr_t AD3d9EndSceneFunction = (uintptr_t)GetModuleHandle(L"d3d9.dll") + (uintptr_t)SDK::RVA::RVAd3d9EndSceneFunction;
+
+    OGetTagPos = (GetTagPos) SDK::Offsets::OffGetTagPos;
 
 #pragma region Placing Hooks
 
-    ACodeCave         =            Trampoline((char*)AHookEntity,           (char*)&EntityHook,   8);
-    AOriginalEndScene = (EndScene) Trampoline((char*)AD3d9EndSceneFunction, (char*)&EndSceneHook, 7);
+    ACodeCave =            Trampoline((char*)AHookEntity,           (char*)&EntityHook,   8);
+    OEndScene = (EndScene) Trampoline((char*)AD3d9EndSceneFunction, (char*)&EndSceneHook, 7);
 
 #pragma endregion
 
