@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <iostream>
 
-#include "game.h"
+#include "sdk.h"
 #include "menu.h"
 
 #define NAKED __declspec(naked)

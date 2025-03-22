@@ -1,7 +1,6 @@
 #pragma once
 
 #include "visuals/visual.h"
-#include "settings.h"
 #include "types.h"
 
 #include "hook.h"
