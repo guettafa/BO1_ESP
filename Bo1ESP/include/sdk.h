@@ -16,15 +16,15 @@ namespace SDK
 
 	enum Addresses : uintptr_t
 	{
-		AGetTagPos			= 0x757C80,
-		AFindBoneIdWithName = 0x687530,
-		ALocalPlayerEntity  = 0x1a796f8,
-		AEntityList		    = 0x1A7983C,
-		AViewMatrix		    = 0x0BA6970,
+		AGetTagPos				= 0x757C80,
+		AFindBoneIdWithName		= 0x687530,
+		ALocalPlayerEntity		= 0x1a796f8,
+		AEntityList				= 0x1A7983C,
+		AViewMatrix				= 0x0BA6970,
 
 		// RVA's
-		RVAD3d9PresentFunction  = 0x43DE0,  // Present 
-		RVAD3d9EndSceneFunction = 0x66420,  // EndScene
+		RVAD3d9PresentFunction  = 0x43DE0,
+		RVAD3d9EndSceneFunction = 0x66420,
 	};
 
 	enum Offsets : uintptr_t
