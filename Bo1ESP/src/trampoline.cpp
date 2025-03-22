@@ -21,20 +21,20 @@ void PlaceJmp(char* src, char* dst, const size_t size, DWORD* stolenBytes) noexc
 	VirtualProtect(src, size, dwOld, &dwOld); // Restore access
 }
 
-uintptr_t Trampoline(char* src, char* dst, const size_t size) noexcept
+uintptr_t Trampoline(char* src, char* dst, const size_t numOfBytes) noexcept
 {
-	BYTE* stolenBytes = new BYTE[size];
+	BYTE* stolenBytes = new BYTE[numOfBytes];
 
-	PlaceJmp(src, dst, size, (DWORD*)stolenBytes);
+	PlaceJmp(src, dst, numOfBytes, (DWORD*)stolenBytes);
 
 	auto codeCaveAddrs = (char*)VirtualAlloc(nullptr, 100, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 
-	memcpy_s(codeCaveAddrs, size, stolenBytes, size);
+	memcpy_s(codeCaveAddrs, numOfBytes, stolenBytes, numOfBytes);
 
 	uintptr_t rvaToGoBack = src - codeCaveAddrs - 5;
 
-	*(uintptr_t*)(codeCaveAddrs + size) = JMP; // place jmp so we can jump back after all stolen bytes
-	*(uintptr_t*)(codeCaveAddrs + size + 1) = rvaToGoBack;
+	*(uintptr_t*)(codeCaveAddrs + numOfBytes) = JMP; // place jmp so we can jump back after all stolen bytes
+	*(uintptr_t*)(codeCaveAddrs + numOfBytes + 1) = rvaToGoBack;
 
 	return (uintptr_t)(codeCaveAddrs);
 }

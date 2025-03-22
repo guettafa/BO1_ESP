@@ -51,7 +51,6 @@ void Drawer::Draw(const ImVec2* displaySize) noexcept
 
 		if (isBoxesEnabled)
 		{
-
 			ImGui::Text("Head Origin - x: %f, y: %f, z: %f", headPos.x, headPos.y, headPos.z);
 
 			ImVec2 headPos{};
