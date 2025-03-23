@@ -53,11 +53,11 @@ namespace SDK
 		OffSpaceBetweenEntity = 0x8C,
 	};
 
-	extern int	 (__cdecl* GetWorldOriginOfTag ) (Entity* entity, void* mesh, int tagId, float* origin);
+	extern int	 (__cdecl* GetWorldOriginOfTag ) (Entity* entity, void* mesh, int tagId, Vector3* origin);
 	extern int	 (__cdecl* RegisterTag		   ) (const char* tagNameExj_helmet, int typeEntity);
 	extern void* (__cdecl* GetMeshWithClientNum) (int clientNum, int zeroVal);
 
-	inline bool GetBoneOrigin(int tagId, Entity* entity, uintptr_t entAddress, float* origin)
+	inline bool GetBoneOrigin(int tagId, Entity* entity, uintptr_t entAddress, Vector3* origin)
 	{
 		if (entAddress == 0x1a797FC)
 			return false;

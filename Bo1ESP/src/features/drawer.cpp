@@ -33,16 +33,16 @@ void Drawer::Draw(const ImVec2* displaySize) noexcept
 	for (const auto&[address, val] : Hook::entities)
 	{
 		ImVec2      entPos{};
-		float		headPos[3];
+		Vector3		headPos;
 
 		uintptr_t   addressOfEnt = address + 0x104;
 		ViewMatrix* viewMatrix = reinterpret_cast<ViewMatrix*>(AViewMatrix);
 		Entity*		entity     = reinterpret_cast<Entity*>(addressOfEnt);
 
-		if (!GetBoneOrigin(93, entity, addressOfEnt, headPos))
+		if (!GetBoneOrigin(93, entity, addressOfEnt, &headPos))
 			continue;
 
-		printf("Head Pos : x - %f / y - %f / z - %f \n", headPos[0], headPos[1], headPos[2]);
+		printf("Head Pos : x - %f / y - %f / z - %f \n", headPos.x, headPos.y, headPos.z);
 
 		if (!WorldToScreen(&entity->positions, &entPos, viewMatrix->matrix, displaySize))
 			continue;
