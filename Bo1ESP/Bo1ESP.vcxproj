@@ -173,7 +173,7 @@
     <ClInclude Include="include\features\drawer.h" />
     <ClInclude Include="include\features\visuals\visual.h" />
     <ClInclude Include="include\hook.h" />
-    <ClInclude Include="include\game.h" />
+    <ClInclude Include="include\sdk.h" />
     <ClInclude Include="include\menu.h" />
     <ClInclude Include="include\memory.h" />
     <ClInclude Include="include\features\settings.h" />
@@ -198,7 +198,7 @@
     <ClCompile Include="src\features\drawer.cpp" />
     <ClCompile Include="src\features\settings.cpp" />
     <ClCompile Include="src\features\visuals\visual.cpp" />
-    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\sdk.cpp" />
     <ClCompile Include="src\hook.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\menu.cpp" />

@@ -28,20 +28,21 @@ bool Drawer::WorldToScreen(const Vector3* xyzPos, ImVec2* xyPos, const float* ma
 void Drawer::Draw(const ImVec2* displaySize) noexcept
 {
 	using namespace Settings;
-	using SDK::AViewMatrix, SDK::Entity, SDK::FindBoneWithId;
+	using namespace SDK;
 
-	for (const auto&[addressOfEnt, val] : Hook::entities)
+	for (const auto&[address, val] : Hook::entities)
 	{
 		ImVec2      entPos{};
+		float		headPos[3];
 
+		uintptr_t   addressOfEnt = address + 0x104;
 		ViewMatrix* viewMatrix = reinterpret_cast<ViewMatrix*>(AViewMatrix);
 		Entity*		entity     = reinterpret_cast<Entity*>(addressOfEnt);
 
-		int boneIdOfHead	 = FindBoneWithId((char*)"j_head", 0);
-		int boneIdOfNeck	 = FindBoneWithId((char*)"j_neck", 0);
-		int boneIdOfMainRoot = FindBoneWithId((char*)"j_mainroot", 0);
+		if (!GetBoneOrigin(93, entity, addressOfEnt, headPos))
+			continue;
 
-		// Drawing
+		printf("Head Pos : x - %f / y - %f / z - %f \n", headPos[0], headPos[1], headPos[2]);
 
 		if (!WorldToScreen(&entity->positions, &entPos, viewMatrix->matrix, displaySize))
 			continue;
@@ -51,10 +52,8 @@ void Drawer::Draw(const ImVec2* displaySize) noexcept
 
 		if (isBoxesEnabled)
 		{
-			ImGui::Text("j_head : %d - j_neck : %d - j_mainroot : %d", boneIdOfHead, boneIdOfNeck, boneIdOfMainRoot);
-
-			ImVec2 headPos{};
-			Visual::Box(entPos, headPos, drawList);
+			ImVec2 headPos2{};
+			Visual::Box(entPos, headPos2, drawList);
 		}
 
 		if (isSkeletonsEnabled)

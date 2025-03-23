@@ -30,7 +30,7 @@
     <ClInclude Include="include\hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\game.h">
+    <ClInclude Include="include\sdk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\imgui\imconfig.h">
@@ -119,7 +119,7 @@
     <ClCompile Include="src\features\settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game.cpp">
+    <ClCompile Include="src\sdk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

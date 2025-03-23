@@ -1,6 +1,4 @@
 #include "memory.h"
-#include "hook.h"
-#include "game.h"
 #include "menu.h"
 
 VOID CreateConsole()

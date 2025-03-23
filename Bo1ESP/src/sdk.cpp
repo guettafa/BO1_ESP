@@ -2,6 +2,7 @@
 
 namespace SDK
 {
-	int		(__cdecl* FindBoneWithId) (char* boneName, int a2)						 = (int   (__cdecl*)(char*, int))			 (Addresses::AFindBoneIdWithName);
-	char*	(*GetTagPos)			  (float* origin, Entity* entity, char* boneTag) = (char* (		  *)(float*, Entity*, char*))(Addresses::AGetTagPos);
+	int		(__cdecl* GetWorldOriginOfTag)	(Entity* entity, void* mesh, int tagId, float* origin) = (int	  (__cdecl*)(Entity*, void*, int, float*) )(Addresses::AGetWorldOriginOfTag);
+	int		(__cdecl* RegisterTag)			(const char* tagNameExj_helmet, int typeEntity)		   = (int	  (__cdecl*)(const char*, int))(Addresses::ARegisterTag);
+	void*	(__cdecl* GetMeshWithClientNum) (int clientNum, int zeroVal)						   = (void*	  (__cdecl*)(int, int))(Addresses::AGetMeshWithClientNum);
 };
