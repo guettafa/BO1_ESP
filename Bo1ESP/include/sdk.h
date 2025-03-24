@@ -6,30 +6,43 @@
 
 namespace SDK
 {
-	//struct Entity
-	//{
-	//	char pad_0000[24];
-	//	Vector3 positions;
-	//	char pad_0024[100];
-	//	int16_t health;
-	//	char pad_008A[958];
-	//};
-
 	struct clientInfo
 	{
-		char pad_0000[16]; //0x0000
+		char pad_0000[16];
 		int16_t clientNumber; //0x0010
-		char pad_0012[2]; //0x0012
-	}; //Size: 0x0014
+		char pad_0012[2]; 
+	}; 
 
 	struct Entity
 	{
-		char pad_0000[24]; //0x0000
-		Vector3 positions; //0x0018
-		char pad_0024[24]; //0x0024
+		char pad_0000[24];
+		Vector3 positions;
+		char pad_0024[24];
 		struct clientInfo* client; //0x003C
-		char pad_0040[72]; //0x0040
-	}; //Size: 0x0088
+		char pad_0040[72]; 
+	}; 
+
+	struct Bone 
+	{ 
+		const char* name; 
+		unsigned short id; 
+	};
+
+	inline Bone bones[]
+	{
+		"j_head", 0,
+		"j_neck", 0,
+		"j_spineupper", 0,
+		"j_spinelower", 0,
+		"j_elbow_ri", 0,
+		"j_elbow_le", 0,
+		"j_wrist_ri", 0,
+		"j_wrist_le", 0,
+		"j_knee_ri", 0,
+		"j_knee_le", 0,
+		"j_ankle_ri", 0,
+		"j_ankle_le", 0
+	};
 
 	enum Addresses : uintptr_t
 	{
