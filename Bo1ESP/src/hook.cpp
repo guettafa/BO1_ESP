@@ -4,6 +4,8 @@
 namespace Hook
 {						   
 	EndScene       OEndScene	   = nullptr;
+	SDK::Entity*		tempEntity = nullptr;
+	Vector3 headPos;
 
 	uintptr_t AEntity	= 0;
 	uintptr_t ACodeCave	= 0;

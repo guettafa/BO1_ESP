@@ -16,6 +16,9 @@ namespace Hook
 	extern EndScene OEndScene;
 #pragma endregion
 
+	extern SDK::Entity* tempEntity;
+	extern Vector3 headPos;
+
 	extern uintptr_t							AEntity;
 	extern uintptr_t							ACodeCave;
 	extern std::unordered_map<uintptr_t, bool>	entities;

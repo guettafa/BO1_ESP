@@ -49,6 +49,7 @@ namespace SDK
 		AGetWorldOriginOfTag	= 0x44A0A0,
 		AGetMeshWithClientNum	= 0x501850,
 		ARegisterTag			= 0x55ABF0,
+		AGetTagPos				= 0x757C80,
 
 		ALocalPlayerEntity		= 0x1a796f8,
 		AEntityList				= 0x1A7983C,
@@ -69,6 +70,7 @@ namespace SDK
 	extern int	 (__cdecl* GetWorldOriginOfTag ) (Entity* entity, void* mesh, int tagId, Vector3* origin);
 	extern int	 (__cdecl* RegisterTag		   ) (const char* tagNameExj_helmet, int typeEntity);
 	extern void* (__cdecl* GetMeshWithClientNum) (int clientNum, int zeroVal);
+	extern int	 (__cdecl* GetTagPos		   ) (Vector3* origin, int clientNum, int tagId);
 
 	inline bool GetBoneOrigin(int tagId, Entity* entity, uintptr_t entAddress, Vector3* origin)
 	{

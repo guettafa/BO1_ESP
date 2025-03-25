@@ -9,7 +9,7 @@ void Visual::Line(const ImVec2 xyPos, ImDrawList* drawList, const ImVec2* displa
 void Visual::Box(const ImVec2 xyPos, const ImVec2 headPos, ImDrawList* drawList) noexcept
 {
 	auto bottomLeft = ImVec2(xyPos.x - 30,  xyPos.y);
-	auto topRight   = ImVec2(xyPos.x + 70, xyPos.y - 140);
+	auto topRight   = ImVec2(headPos.x + 30, headPos.y);
 	
 	drawList->AddRect(bottomLeft, topRight, IM_COL32(255, 255, 255, 255), 0.0f, ImDrawFlags_None, 0.5f);
 }
